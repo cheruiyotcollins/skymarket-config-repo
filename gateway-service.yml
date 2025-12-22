@@ -1,0 +1,24 @@
+server:
+  port: 9999
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        # Public: User Service (Login/Register)
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/v1/auth/**
+
+        # Protected: Product Service
+        - id: product-service
+          uri: lb://PRODUCTS-SERVICE
+          predicates:
+            - Path=/api/v1/products/**
+          filters:
+            - AuthenticationFilter
+
+# You can also store your JWT secret here so the Gateway can validate tokens locally
+jwt:
+  secret: "your-very-secure-secret-key-that-matches-user-service"
