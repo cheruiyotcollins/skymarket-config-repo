@@ -1,6 +1,13 @@
-server:
-  port: 9000
 spring:
+  cloud:
+    config:
+      # Grant permission for local overrides
+      allow-override: true
+      # Any local property source (like .env) will win over these remote values
+      override-none: true
+      # Ensures environment variables/System properties take priority
+      override-system-properties: false
+
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/user_db}
     username: ${SPRING_DATASOURCE_USERNAME:collo}
@@ -19,3 +26,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+
+app:
+  base-url: ${APP_BASE_URL:http://localhost:9000}
+  jwt:
+    secret: ${APP_JWT_SECRET}
+    token-validity: ${APP_JWT_TOKEN_VALIDITY:86400000}
+    refresh-token-validity: ${APP_JWT_REFRESH_TOKEN_VALIDITY:604800000}
