@@ -18,6 +18,10 @@ spring:
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/api/v1/orders/**
+        - id: cart-service
+          uri: lb://CART-SERVICE
+          predicates:
+            - Path=/api/v1/carts/**
           filters:
             - AuthenticationFilter
 
