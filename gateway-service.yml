@@ -33,7 +33,8 @@ spring:
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/api/v1/orders/**
-
+          filters:
+            - AuthenticationFilter
         - id: cart-service
           uri: lb://CART-SERVICE
           predicates:
