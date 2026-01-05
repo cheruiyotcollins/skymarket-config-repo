@@ -11,7 +11,7 @@ spring:
       maximum-pool-size: 10
       minimum-idle: 2
 app:
-  base-url: ${APP_BASE_URL:http://localhost:9001}
+  base-url: ${APP_BASE_URL:http://localhost:9999}
   jpa:
     open-in-view: false
     show-sql: true
