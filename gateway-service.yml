@@ -13,7 +13,7 @@ spring:
         - id: product-service
           uri: lb://PRODUCTS-SERVICE
           predicates:
-            - Path=/api/v1/products/**, /api/v1/catalogues/**, /api/v1/comments/**, /api/v1/rating/**, /api/v1/reviews/**, /product-images/**
+            - Path=/api/v1/products/**, /api/v1/catalogues/**, /api/v1/comments/**, /api/v1/rating/**, /api/v1/reviews/**, /product-images/**, /api/v1/carousel/**
         - id: order-service
           uri: lb://ORDER-SERVICE
           predicates:
