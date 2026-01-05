@@ -10,17 +10,21 @@ spring:
     hikari:
       maximum-pool-size: 10
       minimum-idle: 2
-app:
-  base-url: ${APP_BASE_URL:http://localhost:9999}
+
+  # MOVE JPA OUT OF 'app' AND INTO 'spring'
   jpa:
-    open-in-view: false
-    show-sql: true
     hibernate:
       ddl-auto: update
+    show-sql: true
+    open-in-view: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+
+app:
+  base-url: ${APP_BASE_URL:http://localhost:9999}
+
 review:
   comment:
     limit: 5
