@@ -19,6 +19,7 @@ spring:
     password: ${MAIL_PASSWORD} # MUST BE AN APP PASSWORD
     properties:
       mail:
+        debug: true
         smtp:
           auth: true
           starttls:
