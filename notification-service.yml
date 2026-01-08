@@ -1,27 +1,45 @@
 spring:
+  # 1. Database Configuration
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/notification_db}
     username: ${SPRING_DATASOURCE_USERNAME:collo}
-    password: ${SPRING_DATASOURCE_PASSWORD:}
+    password: ${SPRING_DATASOURCE_PASSWORD:Kipkirui92?} # Default from your .env
 
   jpa:
     hibernate:
-      ddl-auto: update # This creates your missing table
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
+  # 2. Kafka Configuration (New)
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: notification-group
+      auto-offset-reset: earliest
+      # Deserializers for receiving JSON data
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        # Trust your package structure to avoid 'class not found' errors
+        spring.json.trusted.packages: "com.skymarket.notificationservice.dto"
+
+  # 3. Mail Server Configuration
   mail:
-    host: smtp.gmail.com
-    port: 587
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
     username: ${MAIL_USERNAME:skymarketke@gmail.com}
-    password: ${MAIL_PASSWORD:tkakomfkzphrnvlg}
+    password: ${MAIL_PASSWORD:tkakomfkzphrnvlg} # Your 16-char App Password
     properties:
       mail:
-        debug: true
+        debug: true # Good for debugging the "AUTH LOGIN" steps
         smtp:
           auth: true
           starttls:
             enable: true
             required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
