@@ -15,16 +15,15 @@ spring:
 
   # 2. Kafka Configuration (New)
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     consumer:
       group-id: notification-group
       auto-offset-reset: earliest
-      # Deserializers for receiving JSON data
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        # Trust your package structure to avoid 'class not found' errors
-        spring.json.trusted.packages: "com.skymarket.notificationservice.dto"
+        spring.json.use.type.headers: false
+        spring.json.value.default.type: com.skymarket.notificationservice.dto.OrderEmailDto
+        spring.json.trusted.packages: "*"
 
   # 3. Mail Server Configuration
   mail:
