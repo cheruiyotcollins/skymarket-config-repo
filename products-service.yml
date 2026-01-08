@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/product_db}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5431/product_db}
     username: ${SPRING_DATASOURCE_USERNAME:collo}
     password: ${SPRING_DATASOURCE_PASSWORD:}
     driver-class-name: org.postgresql.Driver
