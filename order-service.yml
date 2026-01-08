@@ -21,11 +21,16 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
 
-  # Kafka Producer Settings (Added)
+  # Kafka Configuration
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    # This matches the @Value("${spring.kafka.topic.name}") in your code
+    topic:
+      name: order-placed-topic
     producer:
-      # Key is usually a String (like Order ID)
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      # Value is your Order DTO converted to JSON
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all # Ensures data is safely written to Kafka replicas
+      retries: 3
+      properties:
+        spring.json.add.type.headers: true # Helps the consumer identify the DTO class
