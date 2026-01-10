@@ -1,5 +1,7 @@
-spring:
+
+server:
   port: 9004
+spring:
   # 1. Database Configuration
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/notification_db}
